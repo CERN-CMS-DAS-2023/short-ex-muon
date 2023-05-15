@@ -1,0 +1,17 @@
+<use name="FWCore/Framework"/>
+<use name="FWCore/PluginManager"/>
+<use name="FWCore/ParameterSet"/>
+<use name="DataFormats/L1Trigger"/>
+<use name="DataFormats/TrackReco"/>
+<use name="SimTracker/Records"/>
+<use name="DataFormats/MuonReco"/>
+<use name="DataFormats/Math"/>
+<use name="CommonTools/UtilAlgos"/>
+<use name="DataFormats/HepMCCandidate"/>
+<use name="DataFormats/PatCandidates"/>
+<use name="DataFormats/Common"/>
+<use name="CLHEP"/>
+<use name="root"/>
+<library file="MuonExercise1.cc" name="MuonExercise1">
+  <flags EDM_PLUGIN="1"/>
+</library>
