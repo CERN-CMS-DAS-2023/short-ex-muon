@@ -15,7 +15,7 @@ process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
 process.options = cms.untracked.PSet( wantSummary = cms.untracked.bool(False),
 SkipEvent = cms.untracked.vstring('ProductNotFound'))
 
-process.source = cms.Source("PoolSource", fileNames = cms.untracked.vstring('root://cmseos.fnal.gov///store/user/cmsdas/2019/short_exercises/Muons/Samples/dymm.root'))
+process.source = cms.Source("PoolSource", fileNames = cms.untracked.vstring('/eos/home-c/cmsdas/2023/short-ex-muon/dymm.root'))
 
 process.demo = cms.EDAnalyzer('MuonExercise1')
 
