@@ -12,6 +12,9 @@
 <use name="DataFormats/Common"/>
 <use name="CLHEP"/>
 <use name="root"/>
+<library file="MuonExercise2.cc" name="MuonExercise2">
+  <flags EDM_PLUGIN="1"/>
+</library>
 <library file="MuonExercise1.cc" name="MuonExercise1">
   <flags EDM_PLUGIN="1"/>
 </library>
