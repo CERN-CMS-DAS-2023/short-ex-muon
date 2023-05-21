@@ -37,6 +37,7 @@
 #include "DataFormats/PatCandidates/interface/PackedGenParticle.h"
 #include "DataFormats/PatCandidates/interface/Muon.h"
 #include "DataFormats/Math/interface/deltaR.h"
+#include "DataFormats/VertexReco/interface/VertexFwd.h"
 
 //
 // class declaration
@@ -61,6 +62,7 @@ class MuonExercise2 : public edm::one::EDAnalyzer<edm::one::SharedResources> {
       
       edm::EDGetTokenT<pat::MuonCollection> muonCollToken;
       edm::EDGetTokenT<pat::PackedGenParticleCollection> genCollToken;
+      edm::EDGetTokenT<reco::VertexCollection> vertexToken;
   
       TH1F* h_RecDiMuonM;
       TH1F* h_GenDiMuonM;
@@ -85,9 +87,11 @@ MuonExercise2::MuonExercise2(const edm::ParameterSet& iConfig) {
 
   edm::InputTag theMuonLabel("slimmedMuons");
   edm::InputTag theGenMuonLabel("packedGenParticles");
+  edm::InputTag theVertexLabel("offlineSlimmedPrimaryVertices");
   
   muonCollToken = consumes<pat::MuonCollection>(theMuonLabel);
   genCollToken = consumes<pat::PackedGenParticleCollection>(theGenMuonLabel);
+  vertexToken = consumes<reco::VertexCollection>(theVertexLabel);
 
   edm::Service<TFileService> fs;
   
@@ -133,6 +137,19 @@ void MuonExercise2::analyze(const edm::Event& iEvent, const edm::EventSetup& iSe
    
   edm::Handle <pat::PackedGenParticleCollection> genColl;
   iEvent.getByToken(genCollToken, genColl);
+
+  edm::Handle<reco::VertexCollection> vertices;
+  iEvent.getByToken(vertexToken, vertices);
+
+  const reco::Vertex* firstGoodVertex;
+  for (auto& vertex : *vertices){
+    if (!vertex.isFake() && vertex.ndof()>4 && vertex.position().Rho()<2 && std::abs(vertex.position().Z())<24){
+      firstGoodVertex=&vertex;
+      break;
+    }
+      
+  }
+  if (!firstGoodVertex) return;
 
   /////////////////////////////////////////////////
   // Dimuon pairs /////////////////////////////////
